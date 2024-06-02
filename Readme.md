@@ -28,7 +28,7 @@ In case the fraud poses risks, it is directly to the authorities with virtually 
 # How we built it
 Step 1: Research and Data Collection The first step involved extensive research into the characteristics of fraud calls. We collected data from various sources, including publicly available datasets of scam call recordings and transcripts. Below are example datasets that were used: 
 ● RBI published publicly available documents were used to benchmark the category of fraud 
-○ < https://www.rbi.org.in/financialeducation/RajuandATM.aspx > 
+○ < (https://github.com/7shiny786/ArthaRaksha/blob/main/Data/RBIDoc_DataStore.docx) > 
 ● A BigQuery scam call dataset was used that was publicly available: 
 ○ <https://github.com/7shiny786/ArthaRaksha/blob/main/Data/ScamCalls_SM_Scam%20Call_1.mp3 > 
 ● A few audio calls simulating real fraud calls were made - they are available in GitHub as example calls and used in the prototype flow. Bank/e-commerce clients' names that were used to make the call look like real scam calls made by scammers. These are not real scam calls and have no relation with the bank name or e-commerce company name taken in the scam calls. 
