@@ -85,7 +85,7 @@ Built a strong foundation for collaboration with government agencies, banking in
 
 # What we learned
 
-Throughout the project, I gained invaluable insights and skills:
+Throughout the project, we gained invaluable insights and skills:
 
 Understanding of Fraud Tactics and Response systems in place: Most common tactics used by fraudsters, understanding their methods, channels and psychological ploys to deceive victims.
 
