@@ -130,6 +130,7 @@ Potential social Impact:
 
 We were able to give aspirational shape and form to an idea to counter financial scams and were able to build a strong foundation for a self-evolving ecosystem that can be fed and nurtured through collaboration and contribution of all players and institutions interested in the fight against financial fraud. The project has demonstrated the feasibility of a federated shared data and AI platform paving the way for a more coordinated and comprehensive approach to combating financial crime.
 
+
 # What we learned
 
 Throughout the project, we gained invaluable insights and skills:
@@ -151,16 +152,38 @@ Gen-AI-based developer empowerment: Gen-AI capabilities are still evolving but e
 Promises, Limitations and Opportunities: We learned that Vertex AI Agent Builder can become a game changer in driving massive adoption of complex technology offerings through an intuitive, simple human interface and natural language-based user interactions. Through the development experience, we also came across limitations of the current version of Vertex AI Agent Builder that, we understand, is in a preview state at the time of writing this document. We expect the platform to naturally evolve through further testing and improvements to become even more helpful to developers and churn massively impacting Gen-AI apps. Some of the limitations are discussed in the section “Challenges faced”. We also have tremendous opportunities in extending VertexAI Agent Builders to become part of the larger integrated ecosystem that comprises an enormous spread of traditional tech stack, applications, and data systems (such as data warehouses and data lakes).
 
 # What's next for ArthaRaksha:-
-Further development of the ArthaRaksha prototype to enhance its accuracy and capabilities. This includes expanding the training data, optimizing the AI models, and incorporating feedback from real-world users.
-Exploring partnerships with banks and financial institutions to integrate ArthaRaksha into their existing fraud prevention systems. This would allow for wider adoption and a more proactive approach to fraud detection and mitigation.
-Collaborating with government agencies and regulatory bodies, such as the Reserve Bank of India (RBI) and the Indian Cybercrime Coordination Centre, to develop a more comprehensive and collaborative framework for combatting financial fraud. This could involve sharing data, best practices, and resources to create a more robust and effective ecosystem for fraud prevention.
-Expanding the reach of ArthaRaksha beyond India to other countries facing similar challenges with financial fraud. This would require tailoring the solution to local languages and regulatory environments.
-Continuous research and development to stay ahead of evolving fraud tactics and technologies. This includes exploring new AI models, data sources, and methodologies to ensure the effectiveness of ArthaRaksha in the long term.
+Robustness and Completeness: Making the application much more robust and powerful 
+by fine-tuning model and enabling integration with RAG based implementation using vector DB’s enriched with large corpus of fraud datasets
+Rigorous testing and exception handling
+Feeding in quality, diverse fraud datasets in different languages and categorized by fraud patterns that are labeled to enable better model training
+Creating feedback loops that can use the combination of unstructured transcriptions and structured data models related to 1) events, (anonymized) user interactions, and output of the model, 2) actions of law enforcement agencies on the incident, and 3) final outcome of the incident as input data to keep the core gen AI model for Fraud Analysis always up to date with mutating fraud patterns and, therefore, always future relevant.
+Implementing the fraud incident reporting API in its entirety including the ability to integrate with 3rd party applications with representational schematics similar to what is expected at National Cyber Crime Reporting Bureau Portal. Explore possibility to test integration with a test portal.
+Better and more universal User interface including mobile application to provide a product level user experience that goes beyond the current prototype
+Integration with Call and text recording features on Android / IOS to provide a seamless end to end user experience to the general user.
+Supporting streaming record processing (ex. for ongoing call streams) and ability to build alerting mechanisms through EDA (Event driven Architecture) that can set off alarms even during the middle of calls to alert users on potential fraud attempts, and provide reasons for the same in the preferred (or most used) language of the user. 
+Further development of the ArthaRaksha prototype to enhance its accuracy and capabilities.
+Building a more responsive model that can process parts of the analysis requirement at edge (mo mobile’s hardware) that can help latency in responding to users and artistic ways to keep users engaged.
+Incorporating feedback from real-world users and parties involved in the ecosystem.
+Compliance and Auditing - building effective mechanisms to build data and model security, explainability, transparency, and auditable compliance embedded within the ArthaRaksha framework.
+Building in measurement metrics that can be directly correlated to desirable outcomes and trends related to fraud prevention, early detection, control, responsiveness, and incident closures.  
 
-ArthaRaksha can be installed on mobile which will tell real-time in ongoing calls if the call is fraud or not. This will help users protect themselves from Fraud.
+
+Seeking partnerships and sponsors: 
+Exploring partnerships with banks and financial institutions to get their buy-in and investments in future implementation and integration of vanilla ArthaRaksha model into their existing or upcoming fraud detection and prevention systems. This would allow for wider adoption and a more proactive approach to fraud detection and mitigation.
+Making representation and seeking opportunities to collaborate with government agencies and regulatory bodies, such as the Reserve Bank of India (RBI) and the Indian Cyber Crime Coordination Centre, to develop a more comprehensive and collaborative framework for combating financial fraud. This could involve sharing data for fraud research, best practices, and shared resources to create a more robust and effective ecosystem for fraud prevention and control.
+Exploring partnership with Google for next steps.
+Exploring opportunities to adapt ArthaRaksha beyond India to other countries and financial institutions facing similar challenges with financial fraud and those who are at the inflection point in digital transformation of their financial sectors. This would require tailoring the solution to local languages and aligning to respective regulatory environments.
+
+
+Continuous research and development to stay ahead of evolving fraud tactics and technologies and contribute to Google’ Vertex AI Agent Builder platform evolution roadmap through the developer experience obtained through the next stages of the product development life-cycle. This includes exploring new AI models and systems, product offerings, data sources, and methodologies to ensure effectiveness and sustainability of the idea of ArthaRaksha in the future.
+We were able to successfully demonstrate an effective application of generative AI Models powered by Google cloud platform that can have a significant and sustainable social and financial impact on the rapidly expanding digital transformation in India especially in the financial sector. If the model works in India, it might become a reference implementation for other regions to follow. 
+
+ArthaRaksha is not about building a mobile application only. It is meant to be a working model ecosystem to fuel a fraud protection revolution in which multiple legitimate and genuine players across government, regulatory bodies, financial companies, telecom companies, tech companies, and law enforcement agencies can come together with their respective complementary specializations around data, models, customer records, fraud records, and response mechanisms (such as blocking fraud account / contact numbers) to co-create a safe, highly agile, always updated, and universally adopted system that can protect citizens from excruciating financial losses and reduce the burden of investigations by enforcement agencies by reducing the count and impact of scamming attempts in the future. ArthaRaksha, aspirationally, is meant to be the UPI equivalent model of fraud protection.
+
 
 
 # Conclusion
-This project was both a personal and professional journey. Inspired by a real-life incident, We were motivated to leverage advanced Vertex AI technologies to address a growing concern. Through this project, we not only honed our technical skills but also contributed to a cause that could potentially protect others from falling victim to fraud. The challenges faced along the way were valuable learning experiences, shaping our understanding of Vertex AI applications and their impact on society.
+This project started with a mere brainstorming idea but has resulted in both personal and professional gratification. Inspired by real-life incidents, some personal in nature, we were motivated to contribute to a cause that could potentially protect others from falling victim to fraud and create an impact on the society and economy as a whole by increasing deterrence levels and reducing marginal gains of scammers who might eventually realize that the scamming attempts are no longer bearing expected results. We were motivated to explore the latest Google Cloud Vertex AI capabilities and the Gemini models to test their prowess in real world scenarios and were mightily impressed by its capabilities while realizing that the platform is still at its embryonic stage and there are big opportunities to develop it further through continuous feedback cycles. 
+Finally, we were able to bring to life a prototype application that could talk simply the language of the user and come to the rescue of a layman while leveraging some of the latest and most powerful technologies invisibly working in the backend. Through this project, we could hone our technical skills and we are certain that this experience would be very useful to us in the next such initiatives in the future.
 
 
