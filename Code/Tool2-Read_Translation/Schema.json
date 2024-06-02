@@ -1,0 +1,59 @@
+{
+    "openapi": "3.0.2",
+    "info": {
+        "title": "Transcribe_Call_https_trigger",
+        "description": "Trigger https request to transcribe call and receive transcription text in response",
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "https://your-cloud-function"
+        }
+    ],
+    "paths": {
+        "/ReadTranslation": {
+            "get": {
+                "summary": "read translated, transcriped file from GCS",
+                "description": "Returns transcribed text",
+                "operationId": "readTranslationgenAI",
+                "parameters": [
+                    {
+                        "in": "query",
+                        "name": "file_path",
+                        "description": "The gcs path of the existing file",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Transcription path of the call record",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "translated_text": {
+                                            "type": "string"
+                                        },
+                                        "file_path": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request - Invalid query parameter or missing required parameter"
+                    },
+                    "404": {
+                        "description": "path not found"
+                    }
+                }
+            }
+        }
+    }
+}
