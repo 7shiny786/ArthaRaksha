@@ -1,0 +1,5 @@
+Type- OpenAPI
+
+Description-
+This tool is used to read a translated transcript store in GCS path to use the file text as input for fraud analysis and Q&A
+
