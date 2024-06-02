@@ -1,1 +1,396 @@
+import functions_framework
+import os
+from google.cloud.speech_v2 import SpeechClient
+from google.cloud.speech_v2.types import cloud_speech
+import base64
+import vertexai
+from vertexai.generative_models import GenerativeModel, Part, FinishReason
+import vertexai.preview.generative_models as generative_models
+from google.cloud import storage
+from flask import Flask, request, make_response
+import json
 
+app = Flask(__name__)
+# @app.route('/Transcribe', methods=['GET'])
+# @app.route('/Translate', methods=['GET'])
+
+@app.route("/")
+
+def main(request):
+  """Main function that dispatches based on path"""
+  if request.path == "/":
+    return {"message": "Welcome! Use /getTranscriptiongenAI or /getTranslationgenAI to get correct response"}
+  elif request.path == "/Transcribe":
+    return getTranscriptiongenAI(request)
+  elif request.path == "/Translate":
+    return getTranslationgenAI(request)
+  elif request.path == "/ReadTranslation":  
+    return readTranslationgenAI(request)
+  elif request.path == "/Summarize":  
+    return getSummarygenAI(request)
+  else:
+    return {"message": "Invalid path"}, 404
+
+if __name__ == "__main__":
+  app.run(debug=False)  # Set debug to False for production
+
+################################## Create Text transcript in the native language of Speech ###################################
+
+def getTranscriptiongenAI(request):
+    """HTTP Cloud Function.
+    Args:
+        request (flask.Request): The request object.
+        <https://flask.palletsprojects.com/en/1.1.x/api/#incoming-request-data>
+    Returns:
+        The response text, or any set of values that can be turned into a
+        Response object using `make_response`
+        <https://flask.palletsprojects.com/en/1.1.x/api/#flask.make_response>.
+    """
+    request_json = request.get_json(silent=True)
+    request_args = request.args
+
+    path = request.args.get('path')
+    if not path:
+        return make_response(json.dumps({"error": "file or path not found"}), 400)
+       
+    # Transribe audio file to text #
+
+    gcs_uri = path
+
+    vertexai.init(project="gcp-ab-gen-ai", location="us-central1")
+    model = GenerativeModel(
+    "gemini-1.5-pro-preview-0514",
+    )
+
+    generation_config = {
+        "max_output_tokens": 8192,
+        "temperature": 1,
+        "top_p": 0.95,
+    }
+
+    safety_settings = {
+        generative_models.HarmCategory.HARM_CATEGORY_HATE_SPEECH: generative_models.HarmBlockThreshold.BLOCK_ONLY_HIGH,
+        generative_models.HarmCategory.HARM_CATEGORY_DANGEROUS_CONTENT: generative_models.HarmBlockThreshold.BLOCK_ONLY_HIGH,
+        generative_models.HarmCategory.HARM_CATEGORY_SEXUALLY_EXPLICIT: generative_models.HarmBlockThreshold.BLOCK_ONLY_HIGH,
+        generative_models.HarmCategory.HARM_CATEGORY_HARASSMENT: generative_models.HarmBlockThreshold.BLOCK_ONLY_HIGH,
+    }
+
+    audio1 = Part.from_uri(
+    mime_type="audio/mpeg",
+    uri=gcs_uri)
+
+    responses = model.generate_content(
+      ["""1. Please transcribe the audio file with following instructions
+            1.1 Wherever English is used in the speech, transcribe in Engligh
+            1.2 Wherever Hindi is used in the speech, transcribe in Hindi
+            1.3 When you cannot find the right transcription, find the closest English or Hindi word to use
+            1.4 Where there are numbers in speech transcribe them in English numbers only  """, audio1],
+      generation_config=generation_config,
+      safety_settings=safety_settings,
+      stream=True,
+    )
+  
+    all_transcripts = ""
+
+    print("Waiting for operation to complete...")
+
+    for response in responses:
+        transcript = response.text
+        all_transcripts += f" {transcript} "  # Append with newline
+
+    ########## the following code is an workaround as feature for parameter passing between two vertexAI agents is not yet available ##########
+
+    # Define text content and filename
+    text_content = all_transcripts
+    filename = "Transcript_1_SM.txt"
+    bucket_name = "scam-ab"
+    folder_path = "ScamSMS/scam_text/"
+
+    # Create GCS client
+    client = storage.Client()
+    bucket = client.bucket(bucket_name)
+
+    # Create a GCS file and write text data
+    blob = bucket.blob(f"{folder_path}{filename}")
+    blob.upload_from_string(text_content)
+
+    target_path = f"gs://{bucket_name}/{folder_path}{filename}"
+
+    print(f"Transcription successful !! Yay !!")
+
+    transcription = {
+        "transcribed_text": all_transcripts,  # The generated text transcript to be returned
+        "target_path": target_path
+    }
+    print(f"Responding with Text Transcript !! Yay !!")
+
+####################################
+
+    return make_response(json.dumps(transcription), 200, {'Content-Type': 'application/json'})
+
+################################## Translate Text transcript to English ###################################
+
+def getTranslationgenAI(request):
+    """HTTP Cloud Function.
+    Args:
+        request (flask.Request): The request object.
+        <https://flask.palletsprojects.com/en/1.1.x/api/#incoming-request-data>
+    Returns:
+        The response text, or any set of values that can be turned into a
+        Response object using `make_response`
+        <https://flask.palletsprojects.com/en/1.1.x/api/#flask.make_response>.
+    """
+    request_json = request.get_json(silent=True)
+    request_args = request.args
+
+    path = request.args.get('path')
+    if not path:
+        return make_response(json.dumps({"error": "file or path not found"}), 400)
+       
+    # Translate audio file to text #
+
+    gcs_uri = path
+
+    vertexai.init(project="gcp-ab-gen-ai", location="us-central1")
+    model = GenerativeModel(
+    "gemini-1.5-pro-preview-0514",
+    )
+
+    generation_config = {
+        "max_output_tokens": 8192,
+        "temperature": 1,
+        "top_p": 0.95,
+    }
+
+    safety_settings = {
+        generative_models.HarmCategory.HARM_CATEGORY_HATE_SPEECH: generative_models.HarmBlockThreshold.BLOCK_ONLY_HIGH,
+        generative_models.HarmCategory.HARM_CATEGORY_DANGEROUS_CONTENT: generative_models.HarmBlockThreshold.BLOCK_ONLY_HIGH,
+        generative_models.HarmCategory.HARM_CATEGORY_SEXUALLY_EXPLICIT: generative_models.HarmBlockThreshold.BLOCK_ONLY_HIGH,
+        generative_models.HarmCategory.HARM_CATEGORY_HARASSMENT: generative_models.HarmBlockThreshold.BLOCK_ONLY_HIGH,
+    }
+
+    audio1 = Part.from_uri(
+    mime_type="audio/mpeg",
+    uri=gcs_uri)
+
+    responses = model.generate_content(
+      ["""Please transcribe the audio file and translate into English """, audio1],
+      generation_config=generation_config,
+      safety_settings=safety_settings,
+      stream=True,
+    )
+  
+    all_transcripts = ""
+
+    print("Waiting for operation to complete...")
+
+    for response in responses:
+        transcript = response.text
+        all_transcripts += f" {transcript} "  # Append with newline
+
+
+    ########## the following code is an workaround as feature for parameter passing between two vertexAI agents is not yet available ##########
+
+    # Define text content and filename
+    text_content = all_transcripts
+    filename = "Translation_1_SM.txt"
+    bucket_name = "scam-ab"
+    folder_path = "ScamSMS/scam_text/"
+
+
+    # Create GCS client
+    client = storage.Client()
+    bucket = client.bucket(bucket_name)
+
+    # Create a GCS file and write text data
+    blob = bucket.blob(f"{folder_path}{filename}")
+    blob.upload_from_string(text_content)
+
+    print(f"Transcription successful !! Yay !!")
+
+    target_path = f"gs://{bucket_name}/{folder_path}{filename}"
+
+    translation = {
+        "translated_text": all_transcripts,  # The generated text transcript to be returned
+        "target_path": target_path
+    }
+    
+    print(f"gs://{bucket_name}/{folder_path}{filename}")
+
+    print(f"Responding with Translated Text Transcript !! Yay !!")
+
+    return make_response(json.dumps(translation), 200, {'Content-Type': 'application/json'})
+
+ #################################### READ TRANSLATION FUNCTION ########################
+
+ 
+def readTranslationgenAI(request):
+    """HTTP Cloud Function.
+    Args:
+        request (flask.Request): The request object.
+        <https://flask.palletsprojects.com/en/1.1.x/api/#incoming-request-data>
+    Returns:
+        The response text, or any set of values that can be turned into a
+        Response object using `make_response`
+        <https://flask.palletsprojects.com/en/1.1.x/api/#flask.make_response>.
+    """
+    request_json = request.get_json(silent=True)
+    request_args = request.args
+
+    file_path = request.args.get('file_path')
+
+    if not file_path:
+        return make_response(json.dumps({"error": "file or target_path not found, are you sure you have transcribed and then translated the file ?"}), 400)
+    
+    # split into bucket name, folder path, and file name
+
+    bucket_name = file_path.split("/")[2]
+
+    # Construct folder path (all elements except first and last)
+    folder_path = "/".join(file_path.split("/")[3:-1])
+
+    # Extract filename (last element)
+    filename = file_path.split("/")[-1]
+
+
+    print(f"Bucket Name: {bucket_name}")
+    print(f"Folder Path: {folder_path}")
+    print(f"Filename: {filename}")
+
+    # Create GCS client
+    client = storage.Client()
+    bucket = client.bucket(bucket_name)
+
+    file_link = f"{folder_path}/{filename}"
+
+    print(f"File_link: {file_link}")
+
+    # Download file content
+    try:
+        translated_text = ""
+        blob = bucket.blob(f"{folder_path}/{filename}")
+        translated_text: str = blob.download_as_string().decode("utf-8")        ## .decode("utf-8")  text_data: str = blob.download_as_string().decode("utf-8")
+
+        print(f"Read successful !! Yay !!")
+
+        print(file_path)
+
+        read_translation = {
+            "translated_text": translated_text,  # The generated text transcript to be returned
+            "file_path": file_path
+        }
+
+        return make_response(json.dumps(read_translation), 200, {'Content-Type': 'application/json'})  
+
+    except Exception as e:
+        return f"Error reading file: {e}", 500
+
+
+
+################################## Summarize Text transcript and identify key events ###################################
+
+    
+def getSummarygenAI(request):
+    """HTTP Cloud Function.
+    Args:
+        request (flask.Request): The request object.
+        <https://flask.palletsprojects.com/en/1.1.x/api/#incoming-request-data>
+    Returns:
+        The response text, or any set of values that can be turned into a
+        Response object using `make_response`
+        <https://flask.palletsprojects.com/en/1.1.x/api/#flask.make_response>.
+    """
+    request_json = request.get_json(silent=True)
+    request_args = request.args
+
+    file_path = request.args.get('file_path')
+    user_query = request.args.get('user_query')
+
+    if not file_path:
+        return make_response(json.dumps({"error": "file or path not found"}), 400)
+       
+    # Translate audio file to text #
+
+    gcs_uri = file_path
+
+    vertexai.init(project="gcp-ab-gen-ai", location="us-central1")
+    model = GenerativeModel(
+    "gemini-1.5-pro-preview-0514",
+    )
+
+    generation_config = {
+        "max_output_tokens": 8192,
+        "temperature": 1,
+        "top_p": 0.95,
+    }
+
+    safety_settings = {
+        generative_models.HarmCategory.HARM_CATEGORY_HATE_SPEECH: generative_models.HarmBlockThreshold.BLOCK_ONLY_HIGH,
+        generative_models.HarmCategory.HARM_CATEGORY_DANGEROUS_CONTENT: generative_models.HarmBlockThreshold.BLOCK_ONLY_HIGH,
+        generative_models.HarmCategory.HARM_CATEGORY_SEXUALLY_EXPLICIT: generative_models.HarmBlockThreshold.BLOCK_ONLY_HIGH,
+        generative_models.HarmCategory.HARM_CATEGORY_HARASSMENT: generative_models.HarmBlockThreshold.BLOCK_ONLY_HIGH,
+    }
+
+    document1 = Part.from_uri(
+    mime_type="text/plain",
+    uri=gcs_uri)
+
+    all_transcripts = ""
+    
+    # Validate user_query presence (optional)
+    if not user_query:
+        prompt = f"""Analyze the attached text file to create a new text file with following fields (as key value pairs): 1) summary_var : <summary content> ;  2) OTP_shared : value: <yes / no> ; chance_financial_fraud : high / mdeium / low ; explanation_financial_fraud <text content>  """
+
+    # Prepare the prompt incorporating user_query and document content
+    prompt = f"""{user_query}\nRespond to the user query based on the attached text file  """
+
+
+    responses = model.generate_content(
+      [prompt, document1],
+      generation_config=generation_config,
+      safety_settings=safety_settings,
+      stream=True,
+    )
+      
+
+    print("Waiting for operation to complete...")
+
+    for response in responses:
+        transcript = response.text
+        all_transcripts += f" {transcript} "  # Append with newline
+
+
+    ########## the following code is an workaround as feature for parameter passing between two vertexAI agents is not yet available ##########
+
+    # Define text content and filename
+    text_content = all_transcripts
+    filename = "Translation_1_SM_summary.txt"
+    bucket_name = "scam-ab"
+    folder_path = "ScamSMS/scam_text/"
+
+
+    # Create GCS client
+    client = storage.Client()
+    bucket = client.bucket(bucket_name)
+
+    # Create a GCS file and write text data
+    blob = bucket.blob(f"{folder_path}{filename}")
+    blob.upload_from_string(text_content)
+
+    print(f"Summarization successful ! File saved in GCS !  Yay !!")
+
+    file_path = f"gs://{bucket_name}/{folder_path}{filename}"
+
+    translation = {
+        "summarized_text": all_transcripts,  # The generated text transcript to be returned
+        "file_path": file_path
+    }
+    
+    print(f"gs://{bucket_name}/{folder_path}{filename}")
+
+    print(f"Responding with Translated Text Transcript !! Yay !!")
+
+    return make_response(json.dumps(translation), 200, {'Content-Type': 'application/json'})
+
+    #########################################
+  
