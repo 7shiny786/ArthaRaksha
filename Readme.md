@@ -35,7 +35,7 @@ The first step involved extensive research into the characteristics of fraud cal
 Since the RBI document was a collection of text, images, text blended within images, and a lot of custom formatting that is commonly seen in marketing materials, OCR was used to extract useful context related to fraud examples and their categories and the processed document was used as input as a data store for grounding.
 	
 Step 2: Designing the Architecture
-We designed the system architecture on the Google Cloud platform and integrated different Google Cloud services to bring the solution to life. A schematic representation of the technical architecture is attached  <here > to enable readers to easily correlate with the below explanation. 
+We designed the system architecture on the Google Cloud platform and integrated different Google Cloud services to bring the solution to life. A schematic representation of the technical architecture is attached  <[here](https://github.com/7shiny786/ArthaRaksha/blob/main/Technical_Architecture/ArthaRaksha-Technical_LLD.png) > to enable readers to easily correlate with the below explanation. 
 The architecture includes:
 ●	Data Ingestion and storage: Google Cloud storage has been used as the predominant data storage component.
 ○	Call (audio) record file are stored at -	<https://github.com/7shiny786/ArthaRaksha/blob/main/Data/ScamCalls_SM_Scam%20Call_2.mp3 >
