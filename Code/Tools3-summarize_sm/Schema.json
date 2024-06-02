@@ -1,0 +1,68 @@
+{
+    "openapi": "3.0.2",
+    "info": {
+        "title": "Transcribe_Call_https_trigger",
+        "description": "Trigger https request to transcribe call and receive transcription text in response",
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "https://cloud-function"
+        }
+    ],
+    "paths": {
+        "/Summarize": {
+            "get": {
+                "summary": "get transcription of the recorded file",
+                "description": "Returns translated text",
+                "operationId": "getSummarygenAI",
+                "parameters": [
+                    {
+                        "in": "query",
+                        "name": "file_path",
+                        "description": "The gcs path of the file",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "in": "query",
+                        "name": "user_query",
+                        "description": "The English translation of call transcript",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Translation file and target path of the translated call record",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "summarized_text": {
+                                            "type": "string"
+                                        },
+                                        "file_path": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request - Invalid query parameter or missing required parameter"
+                    },
+                    "404": {
+                        "description": "path not found"
+                    }
+                }
+            }
+        }
+    }
+}
