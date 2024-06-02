@@ -41,7 +41,7 @@ The architecture includes:
 ○	Call (audio) record file are stored at -	<https://github.com/7shiny786/ArthaRaksha/blob/main/Data/ScamCalls_SM_Scam%20Call_2.mp3 >
 ○	Scam documents including text files and transcribes are stored at -	<https://github.com/7shiny786/ArthaRaksha/blob/main/Data/transcripts_SM_Scam%20Call_1_transcript_66553c59-0000-222f-8ea3-582429cdbdc8.json>
 ○	VertexAI Agent Builder used tool Datastore for the purpose of retrieving data chunks (called snippets) when requested to be grounded to specific datasets for certain questions (for example, fraud categorization). The underlying storage for Datastore is google cloud storage. The cleansed RBI guideline is stored at - <https://github.com/7shiny786/ArthaRaksha/blob/main/Data/RBIDoc_DataStore.docx>
-○	Staging area has been used to store temporary files generated as part of the conversation flow. This serves as kind of working memory for the application for a specific session. 
+○	Staging area has been used to store temporary files generated as part of the conversation flow. This serves as kind of working memory for the application for a specific session. -https://github.com/7shiny786/ArthaRaksha/blob/main/Data/StagingArea_Content/ScamSMS_scam_text_Translation_1_SM.txt
 
 
 Application Stack:
