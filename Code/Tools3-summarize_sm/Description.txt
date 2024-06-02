@@ -1,0 +1,12 @@
+Type- OpenAPI
+
+Description-
+
+take last call transcipt translated into English as input.
+Use genAI to 
+ summarize, 
+ identify whether otp was shared and financial loss could have happened, 
+ find probability of financial fraud committed, and 
+ explanation for the same
+
+Example file_path=gs://scam-ab/ScamSMS/scam_text/Translation_1_SM.txt
