@@ -1,0 +1,6 @@
+Type- Data store
+
+Description-
+
+The tool uses parameter `user_query` and parameter `summarized_text` as input parameters  to retrieve the best matching fraud type or fraud category from the datastore
+
