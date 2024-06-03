@@ -1,0 +1,59 @@
+{
+    "openapi": "3.0.2",
+    "info": {
+        "title": "Transcribe_Call_https_trigger",
+        "description": "Trigger https request to transcribe call and receive transcription text in response",
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "https://us-central1-gcp-ab-gen-ai.cloudfunctions.net/trigger_cloud_transcribe-1-genAI"
+        }
+    ],
+    "paths": {
+        "/Translate": {
+            "get": {
+                "summary": "get transcription of the recorded file",
+                "description": "Returns translated text",
+                "operationId": "getTranslationgenAI",
+                "parameters": [
+                    {
+                        "in": "query",
+                        "name": "path",
+                        "description": "The gcs path of the file",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Translation file and target path of the translated call record",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "translated_text": {
+                                            "type": "string"
+                                        },
+                                        "target_path": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request - Invalid query parameter or missing required parameter"
+                    },
+                    "404": {
+                        "description": "path not found"
+                    }
+                }
+            }
+        }
+    }
+}
