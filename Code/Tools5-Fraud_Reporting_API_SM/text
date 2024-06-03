@@ -1,1 +1,6 @@
+Type- Function
+
+Description:
+Receive all input parameters and use them to generate a function with YAML body. Send the YAMl body and Fraud_incident_id back to the user.
+
 
