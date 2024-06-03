@@ -1,3 +1,10 @@
+## <a name="_vzxrgm14azlq"></a>**Project demo Links**
+**First Link:** Main demo link [Main Demo link](https://www.youtube.com/watch?v=T4jKsEfp5cc)
+<br>
+**SecondLink:** Technical deep-dive link and Architectural Workflow. Walkthrough of ArthaRaksha in action through functionality and code [Second Demo link](https://www.youtube.com/watch?v=RgnEcCYdsbQ&t=0s)
+<br>
+
+
 
 ## <a name="_h1x2i0jbg1em"></a>**About the Project**
 This project focuses on building a prototype resembling a Fraud Protection agent that can help ordinary citizens, especially those who are less aware and emerging digital users against scam calls and texts. Such people may include senior citizens, teenagers with recent digital bank accounts, people from rural parts becoming the emerging digital banking customer segment, people who are not very conversant with English or not so tech savvy etc. though recent reports suggest that well informed individuals in senior private and public sector roles have also fallen for such frauds. This prototype Fraud Protection agent, named ArthaRaksha, is intended to be at the user’s service 24x7 in his / her native language through its mobile app version. The prototype is built using Vertex AI's Agent Builder and is powered by Google Cloud Platform and Google latest Large Language and Multi-modal languages such as Gemini 1.0 and Gemini 1.5 pro. The prototype can transcribe and translate native language speech and text, summarize the event, identify the possibility of fraud, analyze a potential fraud, categorize as per RBI (Reserve Bank of India) fraud classification guidelines and help generate incident report of the potential fraud as per the inputs needed by cybercrime departments with pre-filled parameters (powered by Google’s Gen-AI LLM and MLM models underneath) and finally submit the incident with just one ‘click’ through automated API integration to the agencies and also to banks (if applicable). 
