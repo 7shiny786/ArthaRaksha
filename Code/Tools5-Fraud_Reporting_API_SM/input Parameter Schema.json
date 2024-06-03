@@ -1,0 +1,13 @@
+{
+    "type": "object",
+    "properties": {
+        "fraud_category": {
+            "description": "Set this from fraud_category parameter",
+            "type": "string"
+        },
+        "user_query": {
+            "type": "string",
+            "description": "Set this from the user_query parameter"
+        }
+    }
+}
