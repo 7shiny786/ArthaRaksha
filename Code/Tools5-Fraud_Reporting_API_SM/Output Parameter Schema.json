@@ -1,0 +1,49 @@
+{
+    "properties": {
+        "translated_text": {
+            "type": "string",
+            "description": "Set this from translated_text parameter"
+        },
+        "Receiver_details": {
+            "type": "string",
+            "description": "hardcode it as \"+00987654321\""
+        },
+        "Fraud_incident_id": {
+            "description": "Create an id by concatenating sender_details and current date and time example \"+00123456789_<ddmmyyyyhhmmss>",
+            "type": "string"
+        },
+        "user_query": {
+            "type": "string",
+            "description": "Set this from the user_query parameter"
+        },
+        "fraud_category": {
+            "type": "string",
+            "description": "Set this from fraud_category parameter"
+        },
+        "Fraud_Reason": {
+            "description": "Set this from reason to classify the text in the document as potential fraud",
+            "type": "string"
+        },
+        "Fraud_Prob": {
+            "description": "Set this from probability or chances of text of the call transcript indicating a fraud",
+            "type": "string"
+        },
+        "Fraud_Prob_Reason": {
+            "type": "string",
+            "description": "Set this from the probability or chances of financial loss incurred due to the the text transcript of the fraud call"
+        },
+        "summarized_text": {
+            "description": "Set this from summarized_text parameter",
+            "type": "string"
+        },
+        "sender_details": {
+            "description": "hardcode it as \"+00123456789\"",
+            "type": "string"
+        },
+        "event_time": {
+            "description": "set as per current date and time in format day month year hour minute second <ddmmyyyyhhmmss>",
+            "type": "string"
+        }
+    },
+    "type": "object"
+}
