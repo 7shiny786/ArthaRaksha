@@ -172,7 +172,7 @@ Throughout the project, I gained invaluable insights and skills:
    1. Integration with Call and text recording features on Android / IOS to provide a seamless end-to-end user experience to the general user.
    1. Supporting streaming record processing (ex. for ongoing call streams) and ability to build alerting mechanisms through EDA (Event-driven Architecture) that can set off alarms even during the middle of calls to alert users of potential fraud attempts, and provide reasons for the same in the preferred (or most used) language of the user. 
    1. Further development of the ArthaRaksha prototype to enhance its accuracy and capabilities.
-   1. Building a more responsive model that can process parts of the analysis requirement at edge (mo mobile’s hardware) that can help latency in responding to users and artistic ways to keep users engaged.
+   1. Building a more responsive model that can process parts of the analysis requirement at edge (mo mobile’s hardware) that can help reduce latency in responding to users and artistic ways to keep users engaged.
    1. Incorporating feedback from real-world users and parties involved in the ecosystem.
    1. Compliance and Auditing - building effective mechanisms to build data and model security, explainability, transparency, and auditable compliance embedded within the ArthaRaksha framework.
    1. Building in measurement metrics that can be directly correlated to desirable outcomes and trends related to fraud prevention, early detection, control, responsiveness, and incident closures.  
