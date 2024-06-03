@@ -1,0 +1,9 @@
+Type: OpenAPI
+
+Description:
+This tool is used to trigger cloud function to translate any text into English.
+Example: path = "gs://scam-ab/ScamCalls/SM_Scam Call_4.mp3"
+path = "gs://scam-ab/ScamCalls/SM_Scam Call_5.mp3"
+
+path = "gs://scam-ab/ScamCalls/AUD-20240517-WA0002.mp3"
+
