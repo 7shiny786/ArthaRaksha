@@ -7,7 +7,7 @@
     },
     "servers": [
         {
-            "url": "https://us-central1-gcp-ab-gen-ai.cloudfunctions.net/trigger_cloud_transcribe-1-genAI"
+            "url": "https://your-func"
         }
     ],
     "paths": {
