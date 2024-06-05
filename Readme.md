@@ -1,7 +1,7 @@
 ## <a name="_vzxrgm14azlq"></a>**Project demo Links**
 **First Link:** Main demo link [Main Demo link](https://www.youtube.com/watch?v=T4jKsEfp5cc)
 <br>
-**SecondLink:** Technical deep-dive link and Architectural Workflow. Walkthrough of ArthaRaksha in action through functionality and code [Second Demo link](https://www.youtube.com/watch?v=RgnEcCYdsbQ&t=0s)
+**SecondLink:** Technical deep-dive link and Architectural Workflow. Walkthrough of ArthaRaksha in action through functionality and code [Second Demo link](https://www.youtube.com/watch?v=yIJF56AsCuA)
 <br>
 
 
